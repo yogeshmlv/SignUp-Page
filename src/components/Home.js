@@ -30,7 +30,7 @@ const Home = () => {
     }
     const addData=(e)=>{
         e.preventDefault();
-       const {name,email,phoneNo,password,refrenceId} =inpval;
+       const {name,email,phoneNo,password, refrenceId} =inpval;
        
        if(name===" "){
        alert("Name field is Required");
@@ -49,12 +49,15 @@ const Home = () => {
         alert("Password field is Required");
        }else if (password.length<5){
         alert("Password Should be greater than five");
-       }else if (refrenceId===0){
+       }else if (refrenceId===" "){
         alert("Refrence Id Required")
        }
        else {
         console.log("Data Added Successfully");
-        localStorage.setItem("useryogesh",JSON.stringify(...data,[inpval]));
+        localStorage.setItem("useryogesh",JSON.stringify([...data,inpval]));
+      //   let pass =JSON.parse(localStorage.getItem("useryogesh"))
+      // console.log(pass[0].refrenceId)
+      console.log(refrenceId);
        }
     }
   return (
@@ -86,7 +89,7 @@ const Home = () => {
       </Form.Group>
       <Form.Group className="mb-3 col-lg-6" controlId="formBasicPassword">
         
-        <Form.Control type="password" name='password' onChange={getdata} placeholder="Create Your Refrence Id" />
+        <Form.Control type="text" name="refrenceId" onChange={getdata} placeholder="Create Your Refrence Id" />
       </Form.Group>
      
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
