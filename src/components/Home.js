@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Sign_img from './Sign_img'
@@ -12,7 +12,7 @@ const Home = () => {
         password:" ",
         refrenceId:" "
     })
-
+  
     const [data,setData] =useState([]);
    console.log(inpval);
     const getdata=(e)=>{
@@ -27,6 +27,11 @@ const Home = () => {
           [name]:value
         }
     })
+    }
+    const getdata1=(e)=>{
+      setValue(e.target.value);
+      inpval.refrenceId=e.target.value
+      setInpval(inpval);
     }
     const addData=(e)=>{
         e.preventDefault();
@@ -49,7 +54,7 @@ const Home = () => {
         alert("Password field is Required");
        }else if (password.length<5){
         alert("Password Should be greater than five");
-       }else if (refrenceId===" "){
+       }else if (value===" "){
         alert("Refrence Id Required")
        }
        else {
@@ -57,9 +62,30 @@ const Home = () => {
         localStorage.setItem("useryogesh",JSON.stringify([...data,inpval]));
       //   let pass =JSON.parse(localStorage.getItem("useryogesh"))
       // console.log(pass[0].refrenceId)
-      console.log(refrenceId);
+      //console.log(refrenceId);
        }
-    }
+      }
+      //  useEffect(() => {
+      //   localStorage.setItem("useryogesh",JSON.stringify([...data,inpval]));
+       
+      //  }, [data]);
+      const [items,setitems]=useState([]);
+      //console.log(items[0].refrenceId);
+      const [value,setValue] =useState("");
+       useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('useryogesh'));
+       // if (items) {
+        // setItems(items);
+       // }
+       console.log(items);
+       setitems(items);
+       if(items){
+       setValue(items[0].refrenceId);
+      }
+       //console.log(items[0].refrenceId);
+      }, []);
+      console.log(items);
+    
   return (
     <>
     <div className="container mt-3" >
@@ -89,7 +115,7 @@ const Home = () => {
       </Form.Group>
       <Form.Group className="mb-3 col-lg-6" controlId="formBasicPassword">
         
-        <Form.Control type="text" name="refrenceId" onChange={getdata} placeholder="Create Your Refrence Id" />
+        <Form.Control type="text" value={value}  onChange={(e)=>{getdata1(e)}} placeholder="Create Your Refrence Id" />
       </Form.Group>
      
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
