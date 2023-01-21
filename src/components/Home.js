@@ -28,7 +28,6 @@ const Home = () => {
   const getdata = (e) => {
     const { value, name } = e.target;
     console.log(value, name);
-
     setInpval(() => {
       return {
         ...inpval,
@@ -45,7 +44,6 @@ const Home = () => {
     e.preventDefault();
     const { name, email, phoneNo, password, refrenceId } = inpval;
     console.log(inpval);
-
     if (name === " ") {
       alert("Name field is Required");
     } else if (name.length < 2) {
